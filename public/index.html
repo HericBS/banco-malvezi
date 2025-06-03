@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Banco Malvader</title>
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+  <link rel="icon" href="favicon.ico">
+  <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+  <div class="container mt-4">
+    <h1 class="text-center mb-4">Banco Malvader</h1>
+    <!-- Login Section -->
+    <div id="loginSection">
+      <form id="loginForm" autocomplete="off">
+        <div class="form-group">
+          <label for="loginTipo">Tipo de Usuário</label>
+          <select class="form-control" id="loginTipo" name="tipo" required>
+            <option value="">Selecione</option>
+            <option value="CLIENTE">Cliente</option>
+            <option value="FUNCIONARIO">Funcionário</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label for="loginCpf">CPF</label>
+          <input type="text" class="form-control" id="loginCpf" name="cpf" required>
+        </div>
+        <div class="form-group">
+          <label for="loginSenha">Senha</label>
+          <input type="password" class="form-control" id="loginSenha" name="senha" required>
+        </div>
+        <div class="form-group">
+          <label for="loginOtp">OTP</label>
+          <input type="text" class="form-control" id="loginOtp" name="otp" required>
+        </div>
+        <button type="submit" class="btn btn-primary btn-block">Entrar</button>
+      </form>
+      <form action="/api/gerar-otp" method="POST" class="mt-2" id="formGerarOtp">
+        <div class="form-group">
+          <label for="otpCpfInput">CPF para gerar OTP</label>
+          <input type="text" class="form-control" name="cpf" id="otpCpfInput" required>
+        </div>
+        <button type="submit" class="btn btn-secondary btn-block">Gerar OTP</button>
+      </form>
+      <div id="loginMsg" class="mt-2"></div>
+    </div>
+
+    <!-- Tela Cliente (inicialmente oculta) -->
+    <div id="telaCliente" style="display:none;">
+      <div class="card mb-3">
+        <div class="card-header bg-primary text-white">Área do Cliente</div>
+        <div class="card-body">
+          <ul>
+            <li><b>Consultar Saldo</b></li>
+            <form id="formSaldoCliente" class="mb-3">
+              <div class="form-group">
+                <label for="saldoContaIdCliente">ID da Conta</label>
+                <input type="number" class="form-control" id="saldoContaIdCliente" required>
+              </div>
+              <button type="submit" class="btn btn-info btn-sm">Consultar Saldo</button>
+              <div id="saldoClienteMsg" class="mt-2"></div>
+            </form>
+            <li><b>Depósito</b></li>
+            <form id="formDepositoCliente" class="mb-3">
+              <div class="form-group">
+                <label for="depositContaIdCliente">ID da Conta</label>
+                <input type="number" class="form-control" id="depositContaIdCliente" required>
+              </div>
+              <div class="form-group">
+                <label for="depositValorCliente">Valor do Depósito</label>
+                <input type="number" step="0.01" class="form-control" id="depositValorCliente" required>
+              </div>
+              <button type="submit" class="btn btn-success btn-sm">Depositar</button>
+              <div id="depositoClienteMsg" class="mt-2"></div>
+            </form>
+            <li><b>Saque</b></li>
+            <form id="formSaqueCliente" class="mb-3">
+              <div class="form-group">
+                <label for="saqueContaIdCliente">ID da Conta</label>
+                <input type="number" class="form-control" id="saqueContaIdCliente" required>
+              </div>
+              <div class="form-group">
+                <label for="saqueValorCliente">Valor do Saque</label>
+                <input type="number" step="0.01" class="form-control" id="saqueValorCliente" required>
+              </div>
+              <button type="submit" class="btn btn-danger btn-sm">Sacar</button>
+              <div id="saqueClienteMsg" class="mt-2"></div>
+            </form>
+            <li><b>Transferência</b></li>
+            <form id="formTransferenciaCliente" class="mb-3">
+              <div class="form-group">
+                <label for="origemIdCliente">Conta de Origem</label>
+                <input type="number" class="form-control" id="origemIdCliente" required>
+              </div>
+              <div class="form-group">
+                <label for="destinoIdCliente">Conta de Destino</label>
+                <input type="number" class="form-control" id="destinoIdCliente" required>
+              </div>
+              <div class="form-group">
+                <label for="valorTransferenciaCliente">Valor</label>
+                <input type="number" step="0.01" class="form-control" id="valorTransferenciaCliente" required>
+              </div>
+              <button type="submit" class="btn btn-primary btn-sm">Transferir</button>
+              <div id="transferenciaClienteMsg" class="mt-2"></div>
+            </form>
+            <li><b>Extrato</b></li>
+            <form id="formExtratoCliente" class="mb-3">
+              <div class="form-group">
+                <label for="extratoContaIdCliente">ID da Conta</label>
+                <input type="number" class="form-control" id="extratoContaIdCliente" required>
+              </div>
+              <button type="submit" class="btn btn-info btn-sm">Ver Extrato</button>
+              <div id="extratoClienteMsg" class="mt-2"></div>
+            </form>
+            <li><b>Consultar Limite</b></li>
+            <form id="formLimiteCliente" class="mb-3">
+              <div class="form-group">
+                <label for="limiteContaIdCliente">ID da Conta</label>
+                <input type="number" class="form-control" id="limiteContaIdCliente" required>
+              </div>
+              <button type="submit" class="btn btn-info btn-sm">Consultar Limite</button>
+              <div id="limiteClienteMsg" class="mt-2"></div>
+            </form>
+            <li>
+              <button class="btn btn-link p-0" onclick="logout()">Logout</button>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    <!-- Tela Funcionário (inicialmente oculta) -->
+    <div id="telaFuncionario" style="display:none;">
+      <div class="card mb-3">
+        <div class="card-header bg-success text-white">Área do Funcionário</div>
+        <div class="card-body">
+          <ul>
+            <li><b>Cadastro de Funcionário</b></li>
+            <li><b>Abertura de Conta</b></li>
+            <li><b>Encerramento de Conta</b></li>
+            <li><b>Consulta de Dados</b></li>
+            <li><b>Alteração de Dados</b></li>
+            <li><b>Geração de Relatórios</b></li>
+            <li><button class="btn btn-link p-0" onclick="logout()">Logout</button></li>
+          </ul>
+          <!-- Adicione aqui os formulários e funcionalidades do funcionário -->
+        </div>
+      </div>
+    </div>
+  </div>
+  <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+  <script src="app.js"></script>
+  <script>
+    // Exemplo de navegação entre telas após login
+    document.getElementById('loginForm').addEventListener('submit', async function(e) {
+      e.preventDefault();
+      const tipo = document.getElementById('loginTipo').value;
+      // ...aqui você faz a requisição de login normalmente...
+      // Supondo que o login foi bem-sucedido:
+      document.getElementById('loginSection').style.display = 'none';
+      if (tipo === 'CLIENTE') {
+        document.getElementById('telaCliente').style.display = 'block';
+        document.getElementById('telaFuncionario').style.display = 'none';
+      } else if (tipo === 'FUNCIONARIO') {
+        document.getElementById('telaFuncionario').style.display = 'block';
+        document.getElementById('telaCliente').style.display = 'none';
+      }
+    });
+
+    function logout() {
+      document.getElementById('telaCliente').style.display = 'none';
+      document.getElementById('telaFuncionario').style.display = 'none';
+      document.getElementById('loginSection').style.display = 'block';
+      // Limpe campos se necessário
+    }
+  </script>
+</body>
+
+</html>

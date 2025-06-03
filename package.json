@@ -1,0 +1,27 @@
+{
+  "name": "banco-malvezi",
+  "version": "1.0.0",
+  "description": "logica do trabalho do malvezzi",
+  "main": "index.js",
+  "scripts": {
+    "start": "node index.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+ssh://git@github.com/sherek231/banco-malvezzi-2.0.git"
+  },
+  "author": "Heric, lucas, gabriel",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/sherek231/banco-malvezzi-2.0/issues"
+  },
+  "homepage": "https://github.com/sherek231/banco-malvezzi-2.0#readme",
+  "dependencies": {
+    "bcryptjs": "^3.0.2",
+    "cors": "^2.8.5",
+    "express": "^5.1.0",
+    "jsonwebtoken": "^9.0.2",
+    "mysql2": "^3.14.1",
+    "sequelize": "^6.37.7"
+  }
+}
