@@ -5,11 +5,14 @@ const clienteController = require('../controllers/clienteController');
 const contaController = require('../controllers/contaController');
 const usuarioController = require('../controllers/usuarioController');
 const funcionarioController = require('../controllers/funcionarioController');
+const relatorioController = require('../controllers/relatorioController');
 
 // Rotas Cliente
 router.post('/clientes', clienteController.cadastrarCliente);
-// Remova ou comente a linha abaixo se não existir a função listarClientes
-// router.get('/clientes', clienteController.listarClientes);
+router.get('/clientes/perfil', clienteController.consultarPerfil);
+
+// Rotas Relatórios
+router.get('/relatorios/movimentacoes', relatorioController.gerarRelatorioMovimentacoes);
 
 // Rotas Conta
 router.post('/contas', contaController.criarConta);
@@ -23,10 +26,5 @@ router.get('/limite/:contaId', contaController.consultarLimite);
 // Rotas Usuário
 router.post('/usuario', usuarioController.cadastrarUsuario);
 router.post('/login', usuarioController.login);
-router.post('/gerar-otp', usuarioController.gerarOTP);
-router.post('/logout', usuarioController.encerrarSessao);
-
-// Rotas Funcionário
-router.post('/funcionarios', funcionarioController.cadastrarFuncionario);
 
 module.exports = router;

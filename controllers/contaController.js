@@ -1,5 +1,16 @@
-const pool = require('../config/database');
-const { registrarAuditoria } = require('../utils/auditoriaUtils');
+const pool = require('../config/database'); // Certifique-se de que esta linha aparece apenas uma vez
+const { registrarAuditoria } = require('../utils/auditoria');
+
+// Criar conta
+const criarConta = async (req, res) => {
+  try {
+    const { tipoConta, clienteId } = req.body;
+    await pool.execute("INSERT INTO conta (tipo_conta, id_cliente) VALUES (?, ?)", [tipoConta, clienteId]);
+    res.status(201).json({ mensagem: "Conta criada com sucesso!" });
+  } catch (error) {
+    res.status(500).json({ mensagem: "Erro ao criar conta" });
+  }
+};
 
 // Consultar saldo
 const consultarSaldo = async (req, res) => {
@@ -78,10 +89,11 @@ const consultarLimite = async (req, res) => {
 };
 
 module.exports = {
+  criarConta,
   consultarSaldo,
   realizarDeposito,
   realizarSaque,
   realizarTransferencia,
   emitirExtrato,
-  consultarLimite
+  consultarLimite,
 };
