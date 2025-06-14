@@ -169,11 +169,7 @@ document.getElementById('btnGerarOtp').addEventListener('click', async () => {
     return;
   }
   try {
-    // ATENÇÃO: O erro 405 ocorre porque você está acessando o front-end por http://127.0.0.1:5500,
-    // que NÃO encaminha requisições para o backend Express.
-    // Acesse o sistema por http://localhost:3000/index.html (servido pelo Express)
-    // para que as rotas /api/gerar-otp funcionem corretamente.
-
+  
     const res = await fetch(`${API_URL}/gerar-otp`, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },

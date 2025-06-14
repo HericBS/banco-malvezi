@@ -1,10 +1,15 @@
 const express = require('express');
 const cors = require('cors');
 const path = require('path');
+const pool = require('./config/database');
 
 const app = express();
 const PORT = process.env.PORT || 3000;
 
+
+pool.getConnection()
+  .then(() => console.log('Conexão com o banco de dados estabelecida!'))
+  .catch((err) => console.error('Erro ao conectar ao banco de dados:', err));
 // 1) Serve front-end estático (public/)
 app.use(express.static(path.join(__dirname, 'public')));
 
